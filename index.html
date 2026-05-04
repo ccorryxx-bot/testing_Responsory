@@ -1,0 +1,200 @@
+```html
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Lunar Glow — Premium Gift Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Premium background layers -->
+    <div class="orb-glow-1"></div>
+    <div class="orb-glow-2"></div>
+    <div class="grid-pattern"></div>
+    <canvas id="particle-canvas"></canvas>
+    
+    <!-- Offline banner -->
+    <div id="offline-banner" class="offline-banner">⚠️ အင်တာနက် ချိတ်ဆက်မှု ပြတ်တောက်နေသည် — ပြန်လည်ချိတ်ဆက်ပါ</div>
+
+    <!-- Moon + Luxury header -->
+    <div class="floating-moon" id="moon"></div>
+    
+    <main class="app-container">
+        <!-- Skeleton loader -->
+        <div id="skeleton-loader" class="skeleton-wrapper">
+            <div class="skeleton shimmer skeleton-badge"></div>
+            <div class="skeleton-grid">
+                <div class="skeleton shimmer skeleton-img"></div>
+                <div class="skeleton shimmer skeleton-img"></div>
+            </div>
+            <div class="skeleton shimmer skeleton-title"></div>
+            <div class="skeleton shimmer skeleton-text"></div>
+            <div class="skeleton shimmer skeleton-text-short"></div>
+        </div>
+
+        <!-- Main content (dynamic) -->
+        <div id="main-content" class="main-content hidden">
+            <div class="badge-chip">
+                <span>🎁 EXCLUSIVE BONUS</span>
+            </div>
+            <div class="hero-imgs">
+                <img id="img1-disp" class="hero-img" alt="promo visual">
+                <img id="img2-disp" class="hero-img" alt="promo visual">
+            </div>
+            <h1 id="title-disp" class="luxury-title"></h1>
+            <div id="sub-disp" class="description-text"></div>
+        </div>
+    </main>
+
+    <!-- Premium Action Dock (buttons) -->
+    <div class="action-dock">
+        <div class="dock-inner">
+            <!-- Primary CTA -->
+            <button class="dock-btn gift-btn" onclick="handleDraw()">
+                <div class="btn-aura"></div>
+                <span class="dock-icon">🎁</span>
+                <span class="dock-label">ဂိါ့ဖ်ကုဒ် ရယူမည်</span>
+                <div class="btn-shine"></div>
+            </button>
+            
+            <!-- Game buttons row -->
+            <div class="game-strip">
+                <button class="dock-btn game-btn game-9w" onclick="openGame('g1')">
+                    <span class="dock-icon">🎰</span>
+                    <span class="dock-label">9W GAME</span>
+                    <span class="btn-aura"></span>
+                </button>
+                <button class="dock-btn game-btn game-m799" onclick="openGame('g2')">
+                    <span class="dock-icon">🎲</span>
+                    <span class="dock-label">M799 GAME</span>
+                    <span class="btn-aura"></span>
+                </button>
+                <button class="dock-btn game-btn game-m89" onclick="openGame('g3')">
+                    <span class="dock-icon">🎮</span>
+                    <span class="dock-label">M89 GAME</span>
+                    <span class="social-proof-badge" id="social-proof">▲ 1.2K+ active</span>
+                    <span class="btn-aura"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CODE MODAL (Premium Glass) -->
+    <div id="code-modal" class="modal-glass">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeCodeModal()">✕</button>
+            <div class="modal-badge">✨ YOUR GIFT CODE ✨</div>
+            <div id="code-disp" class="code-shine">——</div>
+            <button class="copy-premium" id="copy-btn" onclick="copyCode()">
+                <span>📋 COPY & REDEEM</span>
+                <span id="copy-countdown" class="countdown-ring"></span>
+            </button>
+            <div class="modal-footnote">ဂိမ်းအတွင်း အသုံးပြုရန်</div>
+        </div>
+    </div>
+
+    <!-- ADMIN LOGIN MODAL -->
+    <div id="login-modal" class="modal-overlay hidden">
+        <div class="login-card">
+            <div class="login-icon">🌙✨</div>
+            <h3>Administrator Access</h3>
+            <input type="password" id="pin-input" class="pin-field" placeholder="SECRET PIN" maxlength="6">
+            <div class="login-actions">
+                <button onclick="toggleLogin()" class="btn-outline">Cancel</button>
+                <button onclick="checkLogin()" class="btn-black">Unlock</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN DASHBOARD -->
+    <div id="admin-dash" class="admin-dashboard hidden">
+        <div class="dash-container">
+            <div class="dash-header">
+                <h2>⚡ CONTROL NEXUS</h2>
+                <button onclick="closeDash()" class="dash-close">CLOSE</button>
+            </div>
+            
+            <!-- Analytics Panel -->
+            <div class="stat-panel">
+                <div class="stat-header">
+                    <span>📈 LIVE METRICS</span>
+                    <button onclick="resetStats()" class="reset-btn">RESET</button>
+                </div>
+                <div class="stat-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="s-views">0</div>
+                        <div class="stat-label">Page Views</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="s-gifts">0</div>
+                        <div class="stat-label">Gift Claims</div>
+                        <div class="stat-bar"><div id="s-gift-bar" class="stat-fill" style="width:0%"></div></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="s-dls">0</div>
+                        <div class="stat-label">9W Clicks</div>
+                        <div class="stat-bar"><div id="s-dl-bar" class="stat-fill fill-orange" style="width:0%"></div></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="s-plays">0</div>
+                        <div class="stat-label">M799 + M89</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Config Editor -->
+            <div class="dash-card">
+                <label>🎨 Branding</label>
+                <input id="in-title" type="text" placeholder="Main Title">
+                <input id="in-color" type="color" value="#ffffff">
+                <textarea id="in-sub" rows="2" placeholder="Subtitle (use *text* for bold)"></textarea>
+            </div>
+
+            <div class="dash-card">
+                <label>🔗 Game Links</label>
+                <input id="in-g1-link" type="text" placeholder="9W Game URL">
+                <input id="in-g2-link" type="text" placeholder="M799 Game URL">
+                <input id="in-g3-link" type="text" placeholder="M89 Game URL">
+            </div>
+
+            <div class="dash-card">
+                <label>🖼️ Hero Banners (auto-compress)</label>
+                <div class="upload-duo">
+                    <div><input type="file" accept="image/*" onchange="processImage(this,'pre1')"><img id="pre1" class="preview-img"></div>
+                    <div><input type="file" accept="image/*" onchange="processImage(this,'pre2')"><img id="pre2" class="preview-img"></div>
+                </div>
+            </div>
+
+            <div class="dash-card">
+                <label>🎁 Gift Codes (one per line)</label>
+                <textarea id="in-codes" rows="5" class="code-area" placeholder="GIFT-001"></textarea>
+            </div>
+
+            <div class="dash-card">
+                <label>👥 Social Proof Base</label>
+                <div class="flex-input">
+                    <input id="in-dl-base" type="number" placeholder="847">
+                    <button onclick="saveDlBase()" class="mini-save">Save</button>
+                </div>
+            </div>
+
+            <div class="dash-card">
+                <label>🔐 New Admin PIN (optional)</label>
+                <input id="in-admin-pw" type="text" placeholder="leave empty to keep current">
+            </div>
+
+            <button onclick="saveToCloud()" class="save-cloud-btn">💾 SYNC TO CLOUD</button>
+        </div>
+    </div>
+
+    <div id="toast" class="toast-message hidden">✨ Copied!</div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
+```
