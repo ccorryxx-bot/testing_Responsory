@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Diamond Gaming · Moonlight Christmas</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{-webkit-tap-highlight-color:transparent;box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'Pyidaungsu',sans-serif;color:white;overflow-x:hidden;min-height:100vh;-webkit-overflow-scrolling:touch;overscroll-behavior-y:none;background:#04060f}
+.bg-blob{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0;animation:blob-drift 12s ease-in-out infinite alternate}
+.blob-red{width:320px;height:320px;background:rgba(200,0,50,0.18);top:-80px;left:-60px}
+.blob-blue{width:280px;height:280px;background:rgba(0,80,200,0.15);bottom:200px;right:-80px;animation-delay:-5s}
+.blob-purple{width:200px;height:200px;background:rgba(120,0,200,0.12);top:40%;left:30%;animation-delay:-3s}
+@keyframes blob-drift{from{transform:translate(0,0) scale(1)}to{transform:translate(30px,20px) scale(1.1)}}
+.lux-btn,.bulb,.btn-sweep,.star,.code-sheet,.fixed-btn-bar{will-change:transform;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:translateZ(0)}
+button,a{touch-action:manipulation;cursor:pointer}
+#admin-dash{-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.light-strand{position:fixed;top:-10px;left:0;width:100%;height:60px;background-image:url('data:image/svg+xml;utf8,<svg width="100" height="50" xmlns="http://www.w3.org/2000/svg"><path d="M0 10 Q 25 40 50 10 T 100 10" stroke="white" stroke-opacity="0.08" fill="transparent"/></svg>');background-repeat:repeat-x;z-index:100;pointer-events:none}
+.bulb-container{position:fixed;top:0;left:0;width:100%;display:flex;justify-content:space-around;z-index:101;pointer-events:none}
+.bulb{width:9px;height:13px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;animation:blink 1.5s infinite alternate}
+@keyframes blink{from{opacity:0.3;filter:brightness(0.6) drop-shadow(0 0 1px currentColor)}to{opacity:1;filter:brightness(1.4) drop-shadow(0 0 8px currentColor)}}
+#moon{position:fixed;top:28px;right:28px;width:52px;height:52px;background:radial-gradient(circle at 35% 35%,#fff,#e8e0c0);border-radius:50%;z-index:200;cursor:pointer;pointer-events:all;box-shadow:0 0 0 1px rgba(255,255,255,0.15),0 0 30px rgba(255,255,220,0.35);animation:moon-glow 5s ease-in-out infinite alternate;transition:background .3s,box-shadow .3s}
+@keyframes moon-glow{from{transform:translateZ(0) scale(1)}to{transform:translateZ(0) scale(1.07)}}
+.star{position:fixed;border-radius:50%;pointer-events:none;animation:move-star linear infinite}
+@keyframes move-star{from{transform:translate3d(0,0,0)}to{transform:translate3d(0,-100vh,0)}}
+#offline-banner{position:fixed;top:0;left:0;right:0;z-index:9999;background:linear-gradient(135deg,#1a0000,#3d0000);border-bottom:1px solid rgba(255,60,60,0.3);padding:11px 20px;text-align:center;font-size:11px;font-weight:700;color:#ff8080;transform:translateY(-100%);transition:transform .35s cubic-bezier(0.34,1.56,0.64,1)}
+#offline-banner.show{transform:translateY(0)}
+.skel{background:linear-gradient(90deg,rgba(255,255,255,0.03) 25%,rgba(255,255,255,0.09) 50%,rgba(255,255,255,0.03) 75%);background-size:200% auto;animation:skel-shimmer 1.5s linear infinite;border-radius:inherit}
+@keyframes skel-shimmer{0%{background-position:200% center}100%{background-position:-200% center}}
+.hero-label{display:inline-flex;align-items:center;gap:6px;background:rgba(210,0,100,0.2);border:1px solid rgba(255,80,140,0.4);border-radius:99px;padding:5px 14px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#ff80b0;text-shadow:0 0 12px rgba(255,0,100,0.6)}
+.hero-label-dot{width:6px;height:6px;background:#ff4080;border-radius:50%;animation:dot-pulse 1.2s ease-in-out infinite}
+@keyframes dot-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.6)}}
+.hero-title{font-size:clamp(26px,7vw,42px);font-weight:900;letter-spacing:-.02em;line-height:1.1;background:linear-gradient(135deg,#fff 0%,#e0e0ff 40%,#fff 70%,#ffe090 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:title-shimmer 4s linear infinite}
+@keyframes title-shimmer{0%{background-position:0% center}100%{background-position:200% center}}
+.hero-sub{font-size:14px;color:rgba(255,255,255,.45);line-height:1.7}
+.hero-sub b{color:rgba(255,255,255,.8);font-weight:700}
+.stats-strip{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:1.4rem;padding:8px 6px;margin-top:18px}
+.stat-item{text-align:center}
+.stat-val{font-size:20px;font-weight:900;background:linear-gradient(135deg,#fff,#ffe090);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:3px}
+.stat-key{font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+.fixed-btn-bar{position:fixed;bottom:0;left:0;right:0;z-index:500;padding:8px 12px max(14px,env(safe-area-inset-bottom));background:linear-gradient(to top,rgba(4,6,15,1) 70%,rgba(4,6,15,.9) 90%,transparent)}
+.btn-stack{max-width:500px;margin:0 auto;display:flex;flex-direction:column;gap:5px}
+.lux-btn{position:relative;border:none;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:14px;padding:0 10px;height:46px;width:100%;transition:transform .1s ease,filter .1s ease}
+.lux-btn:active{transform:scale(0.97);filter:brightness(1.08)}
+.lux-btn::before{content:'';position:absolute;top:0;left:0;right:0;height:50%;background:linear-gradient(180deg,rgba(255,255,255,.12),transparent);border-radius:14px 14px 0 0;pointer-events:none}
+.btn-sweep{position:absolute;top:0;left:-120%;width:55%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);transform:skewX(-18deg);pointer-events:none;animation:sweep 3s ease-in-out infinite}
+@keyframes sweep{0%{left:-120%}40%,100%{left:160%}}
+.btn-glow{position:absolute;inset:-4px;border-radius:20px;pointer-events:none;z-index:0;animation:glow-pulse 2.8s ease-in-out infinite}
+@keyframes glow-pulse{0%,100%{opacity:.2}50%{opacity:.7}}
+.btn-gift{background:linear-gradient(120deg,#5c000e,#b8001f,#e8002a,#ff3355);box-shadow:0 4px 20px rgba(200,0,40,.4)}
+.btn-9w{background:linear-gradient(120deg,#1f0c00,#8c3d00,#d45f00,#ffaa33)}
+.btn-m799{background:linear-gradient(120deg,#160030,#6200bb,#9c2ef0,#c060ff)}
+.btn-m89{background:linear-gradient(120deg,#001535,#003fa8,#0070e0,#70ccff)}
+.btn-icon{font-size:18px;position:relative;z-index:3;margin-right:2px}
+.btn-label{font-family:'Pyidaungsu',sans-serif;font-size:13px;font-weight:800;position:relative;z-index:3;flex:1;text-align:center;background:linear-gradient(90deg,#c8c8d8,#fff 25%,#fff5c8 55%,#fff 75%,#c8c8d8);background-size:250% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:label-shimmer 2.6s linear infinite;letter-spacing:.3px}
+@keyframes label-shimmer{0%{background-position:0% center}100%{background-position:250% center}}
+.social-pill{font-size:7px;font-weight:700;background:rgba(0,0,0,.5);border-radius:99px;padding:2px 6px;white-space:nowrap;margin-left:4px}
+/* 3-column grid for 6 photos - horizontal 3, then next row */
+.gallery-6grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0 8px}
+.gallery-card{background:rgba(10,10,28,0.6);backdrop-filter:blur(6px);border-radius:1rem;border:1px solid rgba(255,255,255,0.1);overflow:hidden;transition:transform 0.12s ease;cursor:pointer}
+.gallery-card:active{transform:scale(0.96)}
+.gallery-img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
+.gallery-label{padding:6px 2px 8px;text-align:center;font-weight:800;font-size:11px;background:rgba(0,0,0,0.3);border-top:1px solid rgba(255,255,255,0.05)}
+.animated-label{font-weight:900;font-size:11px;background:linear-gradient(110deg,#ffb347,#ff6b6b,#4ecdc4,#f9d56e,#ff6b6b);background-size:250% auto;color:transparent;-webkit-background-clip:text;background-clip:text;animation:labelFlow 2.2s linear infinite;display:inline-block}
+@keyframes labelFlow{0%{background-position:0% 50%}100%{background-position:250% 50%}}
+#code-modal{display:none;position:fixed;inset:0;z-index:1500;background:rgba(0,0,0,.85);backdrop-filter:blur(16px);align-items:flex-end;justify-content:center;padding:16px 14px 240px}
+.code-sheet{width:100%;max-width:460px;background:linear-gradient(145deg,rgba(18,0,40,.98),rgba(6,0,20,.99));border:1px solid rgba(140,60,255,.35);border-radius:2rem;padding:28px 22px 22px;text-align:center;box-shadow:0 0 80px rgba(100,20,220,.25);animation:sheet-up .3s ease}
+@keyframes sheet-up{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
+#code-disp{font-size:clamp(22px,6vw,34px);font-weight:900;letter-spacing:.1em;background:linear-gradient(135deg,#fff,#d090ff);-webkit-background-clip:text;background-clip:text;color:transparent;margin:12px 0}
+.copy-btn{width:100%;padding:12px;background:linear-gradient(135deg,#6200bb,#9c2ef0);border-radius:1rem;font-weight:900}
+#login-modal{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.9);backdrop-filter:blur(14px);display:none;align-items:center;justify-content:center}
+.login-card{background:white;color:#1a1a2e;padding:28px;border-radius:2rem;width:280px;text-align:center}
+#admin-dash{position:fixed;inset:0;z-index:3000;background:#f4f6fb;color:#1a1a2e;display:none;overflow-y:auto}
+.admin-card{background:white;border-radius:1.2rem;padding:16px;margin-bottom:12px}
+.admin-input{width:100%;padding:10px;background:#f7f9fc;border:1px solid #e4e8f0;border-radius:12px;font-size:13px}
+.gallery-admin-item{border-bottom:1px solid #edeff5;padding:12px 0}
+</style>
+</head>
+<body>
+<div id="offline-banner">⚠️ အင်တာနက် ချိတ်ဆက်မှု မရှိပါ</div>
+<div class="light-strand"></div>
+<div class="bulb-container" id="bulb-box"></div>
+<div id="moon" onclick="moonTap()"></div>
+<div class="bg-blob blob-red"></div>
+<div class="bg-blob blob-blue"></div>
+<div class="bg-blob blob-purple"></div>
+<div id="star-field"></div>
+
+<main style="position:relative;z-index:10;max-width:550px;margin:0 auto;padding:65px 12px 270px">
+  <!-- Skeleton -->
+  <div id="skeleton">
+    <div style="display:flex;justify-content:center;margin-bottom:14px"><div class="skel" style="height:26px;width:160px;border-radius:99px"></div></div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px">
+      <div class="skel" style="height:100px;border-radius:1rem"></div><div class="skel" style="height:100px;border-radius:1rem"></div><div class="skel" style="height:100px;border-radius:1rem"></div>
+    </div>
+    <div class="skel" style="height:26px;width:70%;border-radius:10px;margin:0 auto 8px"></div>
+    <div class="skel" style="height:12px;width:85%;border-radius:8px;margin:0 auto"></div>
+  </div>
+
+  <!-- Real Content -->
+  <div id="main-content" style="opacity:0;transition:opacity .4s ease">
+    <div style="text-align:center;margin-bottom:12px">
+      <div class="hero-label"><span class="hero-label-dot"></span>Diamond Gaming 💎</div>
+    </div>
+    
+    <!-- 6 PHOTOS GRID: 3 per row, 2 rows -->
+    <div id="gallery-grid" class="gallery-6grid"></div>
+
+    <div style="text-align:center;margin:8px 0 2px">
+      <h1 id="title-disp" class="hero-title" style="margin-bottom:4px">Moonlight Xmas</h1>
+      <p id="sub-disp" class="hero-sub"></p>
+    </div>
+
+    <div class="stats-strip">
+      <div class="stat-item"><div class="stat-val" id="live-views">—</div><div class="stat-key">👁 ကြည့်ရှုမှု</div></div>
+      <div class="stat-item"><div class="stat-val" id="live-gifts">—</div><div class="stat-key">🎁 ကုဒ်ရယူ</div></div>
+      <div class="stat-item"><div class="stat-val" id="live-players">—</div><div class="stat-key">🎮 ဆော့သူ</div></div>
+    </div>
+  </div>
+</main>
+
+<!-- BUTTONS (4 buttons, with bold text & emoji spacing) -->
+<div class="fixed-btn-bar">
+  <div class="btn-stack">
+    <button class="lux-btn btn-gift" onclick="handleDraw()"><div class="btn-glow"></div><div class="btn-sweep"></div><span class="btn-icon">🎁</span><span class="btn-label">GIFT CODE ရယူရန်</span></button>
+    <button class="lux-btn btn-9w" onclick="openGame('g1')"><div class="btn-glow"></div><div class="btn-sweep"></div><span class="btn-icon">🎰</span><span class="btn-label"><b>9W</b> ဂိမ်းကစားရန်</span></button>
+    <button class="lux-btn btn-m799" onclick="openGame('g2')"><div class="btn-glow"></div><div class="btn-sweep"></div><span class="btn-icon">🎲</span><span class="btn-label"><b>M799</b> ဂိမ်းကစားရန်</span></button>
+    <button class="lux-btn btn-m89" onclick="openGame('g3')"><div class="btn-glow"></div><div class="btn-sweep"></div><span class="btn-icon">🎮</span><span class="btn-label"><b>M89</b> ဂိမ်းကစားရန်</span><span class="social-pill" id="social-proof">▲ live</span></button>
+  </div>
+</div>
+
+<div id="code-modal"><div class="code-sheet"><button class="absolute top-3 right-4 text-white/40 text-xl" onclick="closeCodeModal()">✕</button><div class="text-[9px] tracking-[.4em] text-white/40">မင်းရဲ့ ဘောနပ်ကုဒ် 🎁</div><div id="code-disp">-----</div><button class="copy-btn" onclick="copyCode()">ကော်ပီ ကူးယူပါ !<span id="copy-countdown"></span></button></div></div>
+<div id="login-modal"><div class="login-card"><div class="text-3xl mb-2">🌙</div><h3 class="font-black text-lg">Admin Access</h3><input type="password" id="pin-input" class="admin-input text-center text-xl tracking-[.4em] mt-4 mb-4" placeholder="••••"><div class="flex gap-2"><button onclick="toggleLogin()" class="flex-1 py-2 bg-gray-200 rounded-xl">Back</button><button onclick="checkLogin()" class="flex-1 py-2 bg-gray-900 text-white rounded-xl">Entry</button></div></div></div>
+
+<div id="admin-dash">
+  <div class="sticky top-0 bg-white/95 backdrop-blur p-4 flex justify-between border-b"><h1 class="font-black">Control Panel</h1><button onclick="closeDash()" class="px-4 py-1 bg-gray-200 rounded-full">CLOSE</button></div>
+  <div class="p-4 max-w-lg mx-auto">
+    <div class="admin-card"><div class="flex justify-between"><span class="admin-label text-[10px] font-bold">📊 ANALYTICS</span><button onclick="resetStats()" class="text-xs bg-red-100 px-2 py-1 rounded">RESET</button></div><div class="grid grid-cols-2 gap-3 mt-2"><div><div id="s-views" class="text-2xl font-black">—</div><div class="text-[10px]">Page Views</div></div><div><div id="s-gifts" class="text-2xl font-black">—</div><div class="text-[10px]">Gift Taps</div></div></div></div>
+    
+    <div class="admin-card"><span class="admin-label text-[10px] font-bold">🎨 GALLERY (6 IMAGES + LABELS + LINKS)</span>
+      <div id="admin-gallery-fields"></div>
+      <div class="mt-3"><span class="admin-label text-[10px]">Social Proof Base</span><div class="flex gap-2"><input id="in-dl-base" type="number" class="admin-input" placeholder="847"><button onclick="saveDlBase()" class="bg-black text-white px-4 rounded-xl text-sm">SAVE</button></div></div>
+    </div>
+    <div class="admin-card"><span class="admin-label">Title & Subtitle</span><input id="in-title" class="admin-input mb-2"><input id="in-color" type="color" class="w-full h-8 mb-2"><textarea id="in-sub" class="admin-input" rows="2"></textarea></div>
+    <div class="admin-card"><span class="admin-label">Game Links</span><input id="in-g1-link" placeholder="9W Link" class="admin-input mb-2"><input id="in-g2-link" placeholder="M799 Link" class="admin-input mb-2"><input id="in-g3-link" placeholder="M89 Link" class="admin-input"></div>
+    <div class="admin-card"><span class="admin-label">Gift Codes (one per line)</span><textarea id="in-codes" class="admin-input" rows="4"></textarea></div>
+    <div class="admin-card"><span class="admin-label">Admin Password (change only)</span><input id="in-admin-pw" type="text" class="admin-input" placeholder="new password"></div>
+    <button onclick="saveToCloud()" id="save-btn" class="w-full bg-gray-900 text-white py-3 rounded-xl font-bold">SAVE TO CLOUD</button>
+  </div>
+</div>
+<div id="toast"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+import { getFirestore, doc, onSnapshot, setDoc, increment } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+const app = initializeApp({ apiKey: "AIzaSyDdoLASpM-r6i6iZOwwe1eE0fS4B4z6_n4", authDomain: "moonlight-xmaz-28e10.firebaseapp.com", projectId: "moonlight-xmaz-28e10", storageBucket: "moonlight-xmaz-28e10.firebasestorage.app", appId: "1:1042314863578:web:f2b20c89aa8b374f29d6e3" });
+const db = getFirestore(app), cfgRef = doc(db, "moonlight_pro", "main_config"), statsRef = doc(db, "moonlight_pro", "analytics");
+let appData = {}, statsData = {}, adminPw = "2006";
+let liveViews = 4158, liveGifts = 1125, livePlayers = 3459;
+let intervalIds = [];
+
+// DYNAMIC NUMBERS (ONLY UP, RANDOM)
+function startDynamicCounters() {
+  if (intervalIds.length) intervalIds.forEach(clearInterval);
+  const updateView = () => { let inc = Math.floor(Math.random() * 12) + 2; liveViews += inc; document.getElementById('live-views').innerText = liveViews.toLocaleString(); };
+  const updateGift = () => { let inc = Math.floor(Math.random() * 7) + 1; liveGifts += inc; document.getElementById('live-gifts').innerText = liveGifts.toLocaleString(); };
+  const updatePlayer = () => { let inc = Math.floor(Math.random() * 9) + 2; livePlayers += inc; document.getElementById('live-players').innerText = livePlayers.toLocaleString(); };
+  intervalIds.push(setInterval(updateView, 4300));
+  intervalIds.push(setInterval(updateGift, 5700));
+  intervalIds.push(setInterval(updatePlayer, 3900));
+  updateView(); updateGift(); updatePlayer();
+}
+
+onSnapshot(cfgRef, (snap) => {
+  if (snap.exists()) { appData = snap.data(); adminPw = appData.adminPw || "2006"; renderGallery(); renderAdminFields(); syncTitleSub(); }
+  else setDoc(cfgRef, { images: Array(6).fill("https://placehold.co/400x400?text=Upload+Image"), links: Array(6).fill(""), labels: ["GIFT BOX","SPECIAL","BONUS","RARE","MYSTIC","PROMO"], title: "Moonlight Xmas", titleColor: "#ffffff", sub: "ပျော်ရွှင်စရာ *Christmas* အခါသမယ", codes: ["XMAS-M89-2024"], codeIndex: 0, adminPw: "2006", dlBase: 847, g1Link: "", g2Link: "", g3Link: "" });
+});
+onSnapshot(statsRef, (snap) => { if (snap.exists()) { statsData = snap.data(); syncStatsFire(); updateSocialProof(); } });
+
+function syncStatsFire() {
+  let v = statsData.pageViews || 0, g = statsData.giftTaps || 0, g1 = statsData.g1Taps || 0, g2 = statsData.g2Taps || 0, g3 = statsData.g3Taps || 0;
+  document.getElementById('s-views').innerText = v.toLocaleString();
+  document.getElementById('s-gifts').innerText = g.toLocaleString();
+  if (v > liveViews) liveViews = v;
+  if (g > liveGifts) liveGifts = g;
+  let playerSum = g1+g2+g3;
+  if (playerSum > livePlayers) livePlayers = playerSum;
+  document.getElementById('live-views').innerText = liveViews.toLocaleString();
+  document.getElementById('live-gifts').innerText = liveGifts.toLocaleString();
+  document.getElementById('live-players').innerText = livePlayers.toLocaleString();
+}
+function syncTitleSub() {
+  document.getElementById('title-disp').innerText = appData.title || 'Moonlight Xmas';
+  document.getElementById('title-disp').style.color = appData.titleColor || '#fff';
+  document.getElementById('sub-disp').innerHTML = (appData.sub || '').replace(/\*(.*?)\*/g, "<b>$1</b>");
+  document.getElementById('in-title').value = appData.title || '';
+  document.getElementById('in-color').value = appData.titleColor || '#ffffff';
+  document.getElementById('in-sub').value = appData.sub || '';
+  document.getElementById('in-g1-link').value = appData.g1Link || '';
+  document.getElementById('in-g2-link').value = appData.g2Link || '';
+  document.getElementById('in-g3-link').value = appData.g3Link || '';
+  document.getElementById('in-codes').value = (appData.codes || []).join('\n');
+  document.getElementById('in-dl-base').value = appData.dlBase || 847;
+}
+function updateSocialProof() { let base = appData.dlBase || 847; let g3val = statsData.g3Taps || 0; document.getElementById('social-proof').innerHTML = '👥 ' + (base + g3val).toLocaleString() + '+'; }
+
+function renderGallery() {
+  let container = document.getElementById('gallery-grid');
+  if (!container) return;
+  let images = appData.images || Array(6).fill("https://placehold.co/400x400?text=Click+to+edit");
+  let links = appData.links || Array(6).fill("#");
+  let labels = appData.labels || ["အထူးလက်ဆောင်","ကန့်သတ်ကုဒ်","ရွှေအခွင့်","ပရိုမိုးရှင်း","လျှို့ဝှက်","ဘောနပ်စ်"];
+  let html = '';
+  for (let i = 0; i < 6; i++) {
+    html += `<div class="gallery-card" onclick="window.open('${escapeHtml(links[i]) || '#'}', '_blank')">
+      <img class="gallery-img" src="${escapeHtml(images[i])}" onerror="this.src='https://placehold.co/400x400?text=error'">
+      <div class="gallery-label"><span class="animated-label">${escapeHtml(labels[i])}</span></div>
+    </div>`;
+  }
+  container.innerHTML = html;
+}
+function renderAdminFields() {
+  let container = document.getElementById('admin-gallery-fields');
+  if (!container) return;
+  let images = appData.images || Array(6).fill("");
+  let links = appData.links || Array(6).fill("");
+  let labels = appData.labels || Array(6).fill("Label");
+  let html = '';
+  for (let i = 0; i < 6; i++) {
+    html += `<div class="gallery-admin-item">
+      <div class="text-xs font-bold mb-1">📸 Image ${i+1}</div>
+      <input id="gimg-${i}" class="admin-input text-sm mb-1" value="${escapeHtml(images[i])}" placeholder="Image URL">
+      <input type="file" accept="image/*" onchange="uploadImg(this, ${i})" class="text-xs mb-2">
+      <input id="glink-${i}" class="admin-input text-sm mb-1" value="${escapeHtml(links[i])}" placeholder="Tap link">
+      <input id="glabel-${i}" class="admin-input text-sm" value="${escapeHtml(labels[i])}" placeholder="Label text">
+    </div>`;
+  }
+  container.innerHTML = html;
+}
+window.uploadImg = (input, idx) => {
+  if (!input.files?.[0]) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      let w = img.width, h = img.height, maxW = 400;
+      if (w > maxW) { h *= maxW / w; w = maxW; }
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
+      document.getElementById(`gimg-${idx}`).value = dataUrl;
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(input.files[0]);
+};
+window.saveToCloud = async () => {
+  let newImages = [], newLinks = [], newLabels = [];
+  for (let i = 0; i < 6; i++) {
+    newImages.push(document.getElementById(`gimg-${i}`)?.value || "");
+    newLinks.push(document.getElementById(`glink-${i}`)?.value || "");
+    newLabels.push(document.getElementById(`glabel-${i}`)?.value || "✨");
+  }
+  const newAdminPw = document.getElementById('in-admin-pw')?.value.trim() || appData.adminPw;
+  await setDoc(cfgRef, {
+    ...appData,
+    images: newImages, links: newLinks, labels: newLabels,
+    title: document.getElementById('in-title').value,
+    titleColor: document.getElementById('in-color').value,
+    sub: document.getElementById('in-sub').value,
+    g1Link: document.getElementById('in-g1-link').value.trim(),
+    g2Link: document.getElementById('in-g2-link').value.trim(),
+    g3Link: document.getElementById('in-g3-link').value.trim(),
+    codes: document.getElementById('in-codes').value.split('\n').filter(c=>c.trim()),
+    codeIndex: 0,
+    dlBase: parseInt(document.getElementById('in-dl-base').value) || 847,
+    adminPw: newAdminPw
+  }, { merge: true });
+  showToast("✓ Saved & Synced");
+  closeDash();
+};
+window.saveDlBase = async () => { let v = parseInt(document.getElementById('in-dl-base').value) || 847; await setDoc(cfgRef, { dlBase: v }, { merge: true }); showToast("Base updated"); };
+window.handleDraw = () => { haptic(22); let codes = appData.codes || []; if(!codes.length) return; let idx = (appData.codeIndex||0)%codes.length; document.getElementById('code-disp').innerText = codes[idx]; document.getElementById('code-modal').style.display = 'flex'; setDoc(statsRef, { giftTaps: increment(1) }, { merge: true }); setDoc(cfgRef, { codeIndex: idx+1 }, { merge: true }); };
+window.openGame = (key) => { let urls = { g1: appData.g1Link, g2: appData.g2Link, g3: appData.g3Link }; let url = urls[key]; if(url?.trim()) { setDoc(statsRef, { [key+'Taps']: increment(1) }, { merge: true }); window.open(url.trim(), '_blank'); } else showToast("Link မသတ်မှတ်ရသေးပါ"); };
+window.checkLogin = () => { if(document.getElementById('pin-input').value === adminPw) { toggleLogin(); document.getElementById('admin-dash').style.display = 'block'; } else showToast("Password မှားနေပါတယ် ❌"); };
+window.resetStats = async () => { if(confirm("Analytics reset မှာ သေချာပါသလား?")) await setDoc(statsRef, { pageViews:0, giftTaps:0, g1Taps:0, g2Taps:0, g3Taps:0 }); };
+window.closeDash = () => document.getElementById('admin-dash').style.display = 'none';
+window.toggleLogin = () => { let m = document.getElementById('login-modal'); let show = m.style.display !== 'flex'; m.style.display = show ? 'flex' : 'none'; };
+window.copyCode = () => { let txt = document.getElementById('code-disp').innerText; navigator.clipboard.writeText(txt); showToast("Copied! ✓"); setTimeout(()=>closeCodeModal(), 1500); };
+window.closeCodeModal = () => document.getElementById('code-modal').style.display = 'none';
+function showToast(msg) { let t = document.getElementById('toast'); t.innerText = msg; t.style.display = 'block'; setTimeout(()=>t.style.display='none', 2000); }
+function haptic(ms) { if(navigator.vibrate) navigator.vibrate(ms); }
+window.moonTap = (() => { let c=0,to; return () => { haptic(8); c++; clearTimeout(to); if(c>=3) { c=0; toggleLogin(); } else to = setTimeout(()=>c=0, 700); }; })();
+window.escapeHtml = (str) => str?.replace(/[&<>]/g, function(m){if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}) || '';
+function initUI() {
+  const starField = document.getElementById('star-field');
+  for(let i=0;i<55;i++){ let s=document.createElement('div'); s.className='star'; let sz=Math.random()*2+0.6+'px'; s.style.cssText=`width:${sz};height:${sz};background:${Math.random()>.7?'#ffea00':'#fff'};left:${Math.random()*100}vw;top:${Math.random()*100}vh;animation-duration:${Math.random()*30+18}s;opacity:${Math.random()*.6+.3}`; starField.appendChild(s); }
+  const box=document.getElementById('bulb-box'); const cols=['#ff2020','#00e040','#0090ff','#ffcc00','#ff00cc'];
+  for(let i=0;i<18;i++){ let b=document.createElement('div'); b.className='bulb'; b.style.cssText=`background:${cols[i%cols.length]};color:${cols[i%cols.length]};animation-delay:${i*.13}s;margin-top:${Math.sin(i)*10+14}px`; box.appendChild(b); }
+  setTimeout(() => { document.getElementById('skeleton').style.display = 'none'; document.getElementById('main-content').style.opacity = '1'; startDynamicCounters(); }, 400);
+}
+window.onload = initUI;
+</script>
+</body>
+</html>
