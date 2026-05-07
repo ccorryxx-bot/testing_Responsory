@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Casino - Professional Gaming Platform</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Loading Screen -->
+        <div id="loading-screen" class="loading-screen">
+            <div class="loader"></div>
+            <p>Elite Casino</p>
+        </div>
+
+        <!-- Auth Screen -->
+        <div id="auth-screen" class="screen hidden">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <h1 class="casino-title">🎰 Elite Casino</h1>
+                    <p class="subtitle">Professional Gaming Platform</p>
+                    
+                    <div class="auth-tabs">
+                        <button class="auth-tab active" data-tab="login">Sign In</button>
+                        <button class="auth-tab" data-tab="register">Create Account</button>
+                    </div>
+
+                    <div id="login-form" class="auth-form active">
+                        <input type="email" id="login-email" placeholder="Email" class="auth-input">
+                        <input type="password" id="login-password" placeholder="Password" class="auth-input">
+                        <button id="login-btn" class="auth-button">Sign In</button>
+                    </div>
+
+                    <div id="register-form" class="auth-form">
+                        <input type="text" id="register-name" placeholder="Full Name" class="auth-input">
+                        <input type="email" id="register-email" placeholder="Email" class="auth-input">
+                        <input type="password" id="register-password" placeholder="Password" class="auth-input">
+                        <button id="register-btn" class="auth-button">Create Account</button>
+                    </div>
+
+                    <p class="demo-hint">Demo: Use any email/password to sign in</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main App -->
+        <div id="main-app" class="screen hidden">
+            <!-- Navigation -->
+            <nav class="navbar">
+                <div class="nav-container">
+                    <div class="nav-brand">🎰 Elite Casino</div>
+                    <div class="nav-menu" id="nav-menu">
+                        <a href="#" data-page="dashboard" class="nav-link active">Dashboard</a>
+                        <a href="#" data-page="slots" class="nav-link">Slots</a>
+                        <a href="#" data-page="roulette" class="nav-link">Roulette</a>
+                        <a href="#" data-page="blackjack" class="nav-link">Blackjack</a>
+                        <a href="#" data-page="sports" class="nav-link">Sports</a>
+                        <a href="#" data-page="wallet" class="nav-link">Wallet</a>
+                        <a href="#" data-page="promotions" class="nav-link">Promotions</a>
+                        <a href="#" data-page="leaderboard" class="nav-link">Leaderboard</a>
+                        <a href="#" data-page="admin" class="nav-link admin-only hidden">Admin</a>
+                    </div>
+                    <div class="nav-right">
+                        <div class="user-info">
+                            <span id="user-name">User</span>
+                            <span id="user-balance" class="balance-display">$0</span>
+                        </div>
+                        <button id="logout-btn" class="logout-button">Logout</button>
+                    </div>
+                    <button class="mobile-menu-toggle" id="mobile-menu-toggle">☰</button>
+                </div>
+            </nav>
+
+            <!-- Content Area -->
+            <div class="main-container">
+                <!-- Dashboard Page -->
+                <div id="dashboard-page" class="page active">
+                    <div class="page-header">
+                        <h1>Welcome to Elite Casino</h1>
+                        <p>Choose a game to start playing</p>
+                    </div>
+
+                    <div class="games-grid">
+                        <div class="game-card" data-game="slots">
+                            <div class="game-icon">🎰</div>
+                            <h3>Slots</h3>
+                            <p>Spin the reels and win big</p>
+                            <button class="game-button">Play Now</button>
+                        </div>
+                        <div class="game-card" data-game="roulette">
+                            <div class="game-icon">🎡</div>
+                            <h3>Roulette</h3>
+                            <p>Place your bets on the wheel</p>
+                            <button class="game-button">Play Now</button>
+                        </div>
+                        <div class="game-card" data-game="blackjack">
+                            <div class="game-icon">🃏</div>
+                            <h3>Blackjack</h3>
+                            <p>Beat the dealer</p>
+                            <button class="game-button">Play Now</button>
+                        </div>
+                        <div class="game-card" data-game="sports">
+                            <div class="game-icon">⚽</div>
+                            <h3>Sports Betting</h3>
+                            <p>Bet on your favorite matches</p>
+                            <button class="game-button">Bet Now</button>
+                        </div>
+                    </div>
+
+                    <div class="quick-stats">
+                        <div class="stat-card">
+                            <h4>Total Balance</h4>
+                            <p id="dashboard-balance" class="stat-value">$1000</p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Total Winnings</h4>
+                            <p id="dashboard-winnings" class="stat-value">$0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Games Played</h4>
+                            <p id="dashboard-games" class="stat-value">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Win Rate</h4>
+                            <p id="dashboard-winrate" class="stat-value">0%</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slots Page -->
+                <div id="slots-page" class="page">
+                    <div class="page-header">
+                        <h1>🎰 Slots Game</h1>
+                    </div>
+                    <div class="game-container">
+                        <div class="slots-game">
+                            <div class="reels-container">
+                                <div class="reel" id="reel-1">🍒</div>
+                                <div class="reel" id="reel-2">🍒</div>
+                                <div class="reel" id="reel-3">🍒</div>
+                            </div>
+                            <div id="slots-result" class="game-result hidden"></div>
+                            <div class="game-controls">
+                                <div class="control-group">
+                                    <label>Bet Amount: $<span id="slots-bet-display">10</span></label>
+                                    <input type="range" id="slots-bet" min="1" max="500" value="10" class="bet-slider">
+                                </div>
+                                <button id="slots-spin-btn" class="spin-button">SPIN</button>
+                            </div>
+                        </div>
+                        <div class="game-info">
+                            <h3>Payouts</h3>
+                            <div class="payout-table">
+                                <p>🍒 🍒 🍒 = 5x</p>
+                                <p>🍊 🍊 🍊 = 10x</p>
+                                <p>🍋 🍋 🍋 = 15x</p>
+                                <p>🍌 🍌 🍌 = 20x</p>
+                                <p>🍉 🍉 🍉 = 25x</p>
+                                <p>🔔 🔔 🔔 = 50x</p>
+                                <p>💎 💎 💎 = 100x</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Roulette Page -->
+                <div id="roulette-page" class="page">
+                    <div class="page-header">
+                        <h1>🎡 Roulette</h1>
+                    </div>
+                    <div class="game-container">
+                        <div class="roulette-game">
+                            <div class="wheel-container">
+                                <div class="wheel" id="roulette-wheel"></div>
+                            </div>
+                            <div id="roulette-result" class="game-result hidden"></div>
+                        </div>
+                        <div class="betting-area">
+                            <div class="bet-controls">
+                                <label>Bet Amount: $<span id="roulette-bet-display">10</span></label>
+                                <input type="range" id="roulette-bet" min="1" max="500" value="10" class="bet-slider">
+                            </div>
+                            <div class="bet-types">
+                                <button class="bet-button" data-bet="red">Red</button>
+                                <button class="bet-button" data-bet="black">Black</button>
+                                <button class="bet-button" data-bet="even">Even</button>
+                                <button class="bet-button" data-bet="odd">Odd</button>
+                                <button class="bet-button" data-bet="1-18">1-18</button>
+                                <button class="bet-button" data-bet="19-36">19-36</button>
+                            </div>
+                            <button id="roulette-spin-btn" class="spin-button">SPIN WHEEL</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blackjack Page -->
+                <div id="blackjack-page" class="page">
+                    <div class="page-header">
+                        <h1>🃏 Blackjack</h1>
+                    </div>
+                    <div class="game-container">
+                        <div class="blackjack-game">
+                            <div class="dealer-area">
+                                <h3>Dealer</h3>
+                                <div id="dealer-cards" class="cards-display"></div>
+                                <p id="dealer-total" class="card-total">Total: 0</p>
+                            </div>
+                            <div class="player-area">
+                                <h3>You</h3>
+                                <div id="player-cards" class="cards-display"></div>
+                                <p id="player-total" class="card-total">Total: 0</p>
+                            </div>
+                            <div id="blackjack-result" class="game-result hidden"></div>
+                            <div class="game-controls">
+                                <div class="control-group">
+                                    <label>Bet Amount: $<span id="blackjack-bet-display">10</span></label>
+                                    <input type="range" id="blackjack-bet" min="1" max="500" value="10" class="bet-slider">
+                                </div>
+                                <div id="action-buttons" class="action-buttons hidden">
+                                    <button id="blackjack-hit-btn" class="action-button">Hit</button>
+                                    <button id="blackjack-stand-btn" class="action-button">Stand</button>
+                                    <button id="blackjack-double-btn" class="action-button">Double Down</button>
+                                </div>
+                                <button id="blackjack-deal-btn" class="spin-button">DEAL</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sports Betting Page -->
+                <div id="sports-page" class="page">
+                    <div class="page-header">
+                        <h1>⚽ Sports Betting</h1>
+                    </div>
+                    <div class="game-container">
+                        <div class="sports-matches" id="sports-matches"></div>
+                        <div class="bet-slip">
+                            <h3>Bet Slip</h3>
+                            <div id="bet-slip-items"></div>
+                            <div class="bet-slip-total">
+                                <p>Total Odds: <span id="total-odds">0.00</span></p>
+                                <p>Potential Win: $<span id="potential-win">0</span></p>
+                            </div>
+                            <div class="control-group">
+                                <label>Stake: $<span id="sports-stake-display">10</span></label>
+                                <input type="range" id="sports-stake" min="1" max="500" value="10" class="bet-slider">
+                            </div>
+                            <button id="place-bet-btn" class="spin-button">Place Bet</button>
+                            <button id="clear-bet-btn" class="secondary-button">Clear</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wallet Page -->
+                <div id="wallet-page" class="page">
+                    <div class="page-header">
+                        <h1>💰 Wallet</h1>
+                    </div>
+                    <div class="wallet-container">
+                        <div class="balance-card">
+                            <h2>Current Balance</h2>
+                            <p id="wallet-balance" class="balance-amount">$1000</p>
+                        </div>
+
+                        <div class="wallet-actions">
+                            <div class="action-card">
+                                <h3>Deposit</h3>
+                                <input type="number" id="deposit-amount" placeholder="Amount" min="1" max="10000" class="input-field">
+                                <button id="deposit-btn" class="action-button">Deposit</button>
+                            </div>
+                            <div class="action-card">
+                                <h3>Withdraw</h3>
+                                <input type="number" id="withdraw-amount" placeholder="Amount" min="1" max="10000" class="input-field">
+                                <button id="withdraw-btn" class="action-button">Withdraw</button>
+                            </div>
+                        </div>
+
+                        <div class="transactions-section">
+                            <h3>Recent Transactions</h3>
+                            <div id="transactions-list" class="transactions-list"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Promotions Page -->
+                <div id="promotions-page" class="page">
+                    <div class="page-header">
+                        <h1>🎁 Promotions & Bonuses</h1>
+                    </div>
+                    <div class="promotions-container">
+                        <div class="promo-card">
+                            <h3>Welcome Bonus</h3>
+                            <p class="promo-desc">Get 100% match on your first deposit up to $500</p>
+                            <p class="promo-value">+$500</p>
+                            <button class="claim-button" data-promo="welcome">Claim</button>
+                        </div>
+                        <div class="promo-card">
+                            <h3>Daily Reward</h3>
+                            <p class="promo-desc">Claim your daily bonus every 24 hours</p>
+                            <p class="promo-value">+$50</p>
+                            <button class="claim-button" data-promo="daily">Claim</button>
+                        </div>
+                        <div class="promo-card">
+                            <h3>VIP Loyalty</h3>
+                            <p class="promo-desc">Earn points on every bet and redeem for rewards</p>
+                            <p class="promo-value">Points: <span id="vip-points">0</span></p>
+                            <button class="claim-button" data-promo="vip">View</button>
+                        </div>
+                        <div class="promo-card">
+                            <h3>Referral Bonus</h3>
+                            <p class="promo-desc">Invite friends and earn $100 per referral</p>
+                            <p class="promo-value">+$100</p>
+                            <button class="claim-button" data-promo="referral">Share</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Leaderboard Page -->
+                <div id="leaderboard-page" class="page">
+                    <div class="page-header">
+                        <h1>🏆 Leaderboard</h1>
+                    </div>
+                    <div class="leaderboard-container">
+                        <table class="leaderboard-table">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Player</th>
+                                    <th>Winnings</th>
+                                    <th>Games</th>
+                                    <th>Win Rate</th>
+                                </tr>
+                            </thead>
+                            <tbody id="leaderboard-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Admin Panel -->
+                <div id="admin-page" class="page admin-only hidden">
+                    <div class="page-header">
+                        <h1>⚙️ Admin Panel</h1>
+                    </div>
+                    <div class="admin-container">
+                        <div class="admin-tabs">
+                            <button class="admin-tab active" data-tab="users">Users</button>
+                            <button class="admin-tab" data-tab="stats">Statistics</button>
+                            <button class="admin-tab" data-tab="transactions">Transactions</button>
+                        </div>
+
+                        <div id="users-tab" class="admin-tab-content active">
+                            <h3>User Management</h3>
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Balance</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-users-list"></tbody>
+                            </table>
+                        </div>
+
+                        <div id="stats-tab" class="admin-tab-content">
+                            <h3>System Statistics</h3>
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <h4>Total Users</h4>
+                                    <p id="admin-total-users">0</p>
+                                </div>
+                                <div class="stat-item">
+                                    <h4>Total Bets</h4>
+                                    <p id="admin-total-bets">0</p>
+                                </div>
+                                <div class="stat-item">
+                                    <h4>Total Winnings</h4>
+                                    <p id="admin-total-winnings">$0</p>
+                                </div>
+                                <div class="stat-item">
+                                    <h4>Platform Balance</h4>
+                                    <p id="admin-platform-balance">$0</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="transactions-tab" class="admin-tab-content">
+                            <h3>All Transactions</h3>
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>User</th>
+                                        <th>Type</th>
+                                        <th>Amount</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-transactions-list"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
