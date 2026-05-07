@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Casino - Premium Gaming Platform</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Loading Screen -->
+        <div id="loading-screen" class="loading-screen">
+            <div class="loader-wrapper">
+                <div class="loader"></div>
+                <h1 class="loader-text">Elite Casino</h1>
+                <p class="loader-subtext">Premium Gaming Experience</p>
+            </div>
+        </div>
+
+        <!-- Floating Notifications -->
+        <div id="notifications-container" class="notifications-container"></div>
+
+        <!-- Promotion Popups -->
+        <div id="promotion-popup" class="promotion-popup hidden">
+            <div class="promotion-content">
+                <button class="close-popup">&times;</button>
+                <div class="promotion-body"></div>
+            </div>
+        </div>
+
+        <!-- Auth Screen -->
+        <div id="auth-screen" class="screen hidden">
+            <div class="auth-wrapper">
+                <div class="auth-background">
+                    <div class="gradient-orb orb-1"></div>
+                    <div class="gradient-orb orb-2"></div>
+                    <div class="gradient-orb orb-3"></div>
+                </div>
+                <div class="auth-container">
+                    <div class="auth-card">
+                        <div class="auth-header">
+                            <h1 class="auth-title">
+                                <i class="fas fa-crown"></i> Elite Casino
+                            </h1>
+                            <p class="auth-subtitle">Premium Gaming Platform</p>
+                        </div>
+
+                        <div class="auth-tabs">
+                            <button class="auth-tab active" data-tab="login">
+                                <i class="fas fa-sign-in-alt"></i> Sign In
+                            </button>
+                            <button class="auth-tab" data-tab="register">
+                                <i class="fas fa-user-plus"></i> Create Account
+                            </button>
+                        </div>
+
+                        <div id="login-form" class="auth-form active">
+                            <div class="form-group">
+                                <label for="login-name">Name</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-user"></i>
+                                    <input type="text" id="login-name" placeholder="Enter your name" class="auth-input">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="login-password">Password</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-lock"></i>
+                                    <input type="password" id="login-password" placeholder="Enter your password" class="auth-input">
+                                </div>
+                            </div>
+                            <button id="login-btn" class="auth-button">
+                                <span>Sign In</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                            <a href="#" class="forgot-password">Forgot Password?</a>
+                        </div>
+
+                        <div id="register-form" class="auth-form">
+                            <div class="form-group">
+                                <label for="register-name">Full Name</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-user"></i>
+                                    <input type="text" id="register-name" placeholder="Enter your full name" class="auth-input">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="register-phone">Phone Number</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-phone"></i>
+                                    <input type="text" id="register-phone" placeholder="e.g. 54642514" class="auth-input">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="register-password">Password</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-lock"></i>
+                                    <input type="password" id="register-password" placeholder="Create a password" class="auth-input">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="register-confirm">Confirm Password</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-lock"></i>
+                                    <input type="password" id="register-confirm" placeholder="Confirm your password" class="auth-input">
+                                </div>
+                            </div>
+                            <button id="register-btn" class="auth-button">
+                                <span>Create Account</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+
+                        <p class="demo-hint">
+                            <i class="fas fa-info-circle"></i> Demo: Enter any name/password to get started
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main App -->
+        <div id="main-app" class="screen hidden">
+            <!-- Navigation -->
+            <nav class="navbar">
+                <div class="nav-container">
+                    <div class="nav-brand">
+                        <i class="fas fa-crown"></i>
+                        <span>Elite Casino</span>
+                    </div>
+                    <div class="nav-menu" id="nav-menu">
+                        <a href="#" data-page="dashboard" class="nav-link active">
+                            <i class="fas fa-home"></i> Dashboard
+                        </a>
+                        <a href="#" data-page="slots" class="nav-link">
+                            <i class="fas fa-dice"></i> Slots
+                        </a>
+                        <a href="#" data-page="roulette" class="nav-link">
+                            <i class="fas fa-circle"></i> Roulette
+                        </a>
+                        <a href="#" data-page="blackjack" class="nav-link">
+                            <i class="fas fa-cards"></i> Blackjack
+                        </a>
+                        <a href="#" data-page="sports" class="nav-link">
+                            <i class="fas fa-football"></i> Sports
+                        </a>
+                        <a href="#" data-page="live" class="nav-link">
+                            <i class="fas fa-video"></i> Live Casino
+                        </a>
+                        <a href="#" data-page="wallet" class="nav-link">
+                            <i class="fas fa-wallet"></i> Wallet
+                        </a>
+                        <a href="#" data-page="promotions" class="nav-link">
+                            <i class="fas fa-gift"></i> Promotions
+                        </a>
+                        <a href="#" data-page="leaderboard" class="nav-link">
+                            <i class="fas fa-trophy"></i> Leaderboard
+                        </a>
+                        <a href="#" data-page="support" class="nav-link">
+                            <i class="fas fa-headset"></i> Support
+                        </a>
+                        <a href="#" data-page="admin" class="nav-link admin-only hidden">
+                            <i class="fas fa-cog"></i> Admin
+                        </a>
+                    </div>
+                    <div class="nav-right">
+                        <div class="vip-status">
+                            <i class="fas fa-star"></i>
+                            <span id="vip-level">Member</span>
+                        </div>
+                        <div class="user-info">
+                            <span id="user-name" class="user-name">User</span>
+                            <span id="user-balance" class="balance-display">$0</span>
+                        </div>
+                        <button id="logout-btn" class="logout-button">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </button>
+                    </div>
+                    <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <div class="main-container">
+                <!-- Dashboard Page -->
+                <div id="dashboard-page" class="page active">
+                    <div class="page-header">
+                        <h1 class="page-title">Welcome Back, <span id="dashboard-name">Player</span></h1>
+                        <p class="page-subtitle">Choose your game and start winning</p>
+                    </div>
+
+                    <div class="dashboard-grid">
+                        <div class="dashboard-stats">
+                            <div class="stat-card animate-in">
+                                <div class="stat-icon">
+                                    <i class="fas fa-wallet"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <p class="stat-label">Balance</p>
+                                    <p class="stat-value" id="dashboard-balance">$1,000</p>
+                                </div>
+                            </div>
+                            <div class="stat-card animate-in" style="animation-delay: 0.1s">
+                                <div class="stat-icon">
+                                    <i class="fas fa-trophy"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <p class="stat-label">Total Winnings</p>
+                                    <p class="stat-value" id="dashboard-winnings">$0</p>
+                                </div>
+                            </div>
+                            <div class="stat-card animate-in" style="animation-delay: 0.2s">
+                                <div class="stat-icon">
+                                    <i class="fas fa-gamepad"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <p class="stat-label">Games Played</p>
+                                    <p class="stat-value" id="dashboard-games">0</p>
+                                </div>
+                            </div>
+                            <div class="stat-card animate-in" style="animation-delay: 0.3s">
+                                <div class="stat-icon">
+                                    <i class="fas fa-percentage"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <p class="stat-label">Win Rate</p>
+                                    <p class="stat-value" id="dashboard-winrate">0%</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="games-showcase">
+                            <div class="game-card" data-game="slots">
+                                <div class="game-card-bg"></div>
+                                <div class="game-icon">🎰</div>
+                                <h3>Slots</h3>
+                                <p>Spin the reels and win big</p>
+                                <button class="game-button">
+                                    <span>Play Now</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                            <div class="game-card" data-game="roulette">
+                                <div class="game-card-bg"></div>
+                                <div class="game-icon">🎡</div>
+                                <h3>Roulette</h3>
+                                <p>Place your bets on the wheel</p>
+                                <button class="game-button">
+                                    <span>Play Now</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                            <div class="game-card" data-game="blackjack">
+                                <div class="game-card-bg"></div>
+                                <div class="game-icon">🃏</div>
+                                <h3>Blackjack</h3>
+                                <p>Beat the dealer</p>
+                                <button class="game-button">
+                                    <span>Play Now</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                            <div class="game-card" data-game="sports">
+                                <div class="game-card-bg"></div>
+                                <div class="game-icon">⚽</div>
+                                <h3>Sports Betting</h3>
+                                <p>Bet on your favorite matches</p>
+                                <button class="game-button">
+                                    <span>Bet Now</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slots Page -->
+                <div id="slots-page" class="page">
+                    <div class="page-header">
+                        <h1 class="page-title"><i class="fas fa-dice"></i> Slots Game</h1>
+                    </div>
+                    <div class="game-container">
+                        <div class="slots-game">
+                            <div class="reels-container">
+                                <div class="reel" id="reel-1">🍒</div>
+                                <div class="reel" id="reel-2">🍒</div>
+                                <div class="reel" id="reel-3">🍒</div>
+                            </div>
+                            <div id="slots-result" class="game-result hidden"></div>
+                            <div class="game-controls">
+                                <div class="control-group">
+                                    <label>Bet Amount: $<span id="slots-bet-display">10</span></label>
+                                    <input type="range" id="slots-bet" min="1" max="500" value="10" class="bet-slider">
+                                </div>
+                                <button id="slots-spin-btn" class="spin-button">
+                                    <i class="fas fa-play"></i> SPIN
+                                </button>
+                            </div>
+                        </div>
+                        <div class="game-info">
+                            <h3><i class="fas fa-list"></i> Payouts</h3>
+                            <div class="payout-table">
+                                <p>🍒 🍒 🍒 = <span class="payout-value">5x</span></p>
+                                <p>🍊 🍊 🍊 = <span class="payout-value">10x</span></p>
+                                <p>🍋 🍋 🍋 = <span class="payout-value">15x</span></p>
+                                <p>🍌 🍌 🍌 = <span class="payout-value">20x</span></p>
+                                <p>🍉 🍉 🍉 = <span class="payout-value">25x</span></p>
+                                <p>🔔 🔔 🔔 = <span class="payout-value">50x</span></p>
+                                <p>💎 💎 💎 = <span class="payout-value">100x</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Roulette Page -->
+                <div id="roulette-page" class="page">
+                    <div class="page-header">
+                        <h1 class="page-title"><i class="fas fa-circle"></i> Roulette</h1>
+                    </div>
+                    <div class="game-container">
+                        <div class="roulette-game">
+                            <div class="wheel-container">
+                                <div class="wheel" id="roulette-wheel"></div>
+                                <div class="wheel-pointer"></div>
+                            </div>
+                            <div id="roulette-result" class="game-result hidden"></div>
+                        </div>
+                        <div class="betting-area">
+                            <div class="bet-controls">
+                                <label>Bet Amount: $<span id="roulette-bet-display">10</span></label>
+                                <input type="range" id="roulette-bet" min="1" max="500" value="10" class="bet-slider">
+                            </div>
+                            <div class="bet-types">
+                                <button class="bet-button" data-bet="red"><i class="fas fa-circle"></i> Red</button>
+                                <button class="bet-button" data-bet="black"><i class="fas fa-circle"></i> Black</button>
+                                <button class="bet-button" data-bet="even">Even</button>
+                                <button class="bet-button" data-bet="odd">Odd</button>
+                                <button class="bet-button" data-bet="1-18">1-18</button>
+                                <button class="bet-button" data-bet="19-36">19-36</button>
+                            </div>
+                            <button id="roulette-spin-btn" class="spin-button">
+                                <i class="fas fa-play"></i> SPIN WHEEL
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blackjack Page -->
+                <div id="blackjack-page" class="page">
+                    <div class="page-header">
+                        <h1 class="page-title"><i class="fas fa-cards"></i> Blackjack</h1>
+                    </div>
+                    <div class="game-container">
+                        <div class="blackjack-game">
+                            <div class="dealer-area">
+                                <h3><i class="fas fa-user-tie"></i> Dealer</h3>
+                                <div id="dealer-cards" class="cards-display"></div>
+                                <p id="dealer-total" class="card-total">Total: 0</p>
+                            </div>
+                            <div class="player-area">
+                                <h3><i class="fas fa-user"></i> You</h3>
+                                <div id="player-cards" class="cards-display"></div>
+                                <p id="player-total" class="card-total">Total: 0</p>
+                            </div>
+                            <div id="blackjack-result" class="game-result hidden"></div>
+                            <div class="game-controls">
+                                <div class="control-group">
+                                    <label>Bet Amount: $<span id="blackjack-bet-display">10</span></label>
+                                    <input type="range" id="blackjack-bet" min="1" max="500" value="10" class="bet-slider">
+                                </div>
+                                <div id="action-buttons" class="action-buttons hidden">
+                                    <button id="blackjack-hit-btn" class="action-button">
+                                        <i class="fas fa-plus"></i> Hit
+                                    </button>
+                                    <button id="blackjack-stand-btn" class="action-button">
+                                        <i class="fas fa-hand-paper"></i> Stand
+                                    </button>
+                                    <button id="blackjack-double-btn" class="action-button">
+                                        <i class="fas fa-times"></i> Double
+                                    </button>
+                                </div>
+                                <button id="blackjack-deal-btn" class="spin-button">
+                                    <i class="fas fa-play"></i> DEAL
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sports Betting Page -->
+                <div id="sports-page" class="page">
+                    <div class="page-header">
+                        <h1 class="page-title"><i class="fas fa-football"></i> Sports Betting</h1>
+                    </div>
+                    <div class="game-container">
+                        <div class="sports-matches" id="sports-matches"></div>
+                        <div class="bet-slip">
+                            <h3><i class="fas fa-list"></i> Bet Slip</h3>
+                            <div id="bet-slip-items"></div>
+                            <div class="bet-slip-total">
+                                <p>Total Odds: <span id="total-odds">0.00</span></p>
+                                <p>Potential Win: $<span id="potential-win">0</span></p>
+                            </div>
+                            <div class="control-group">
+                                <label>Stake: $<span id="sports-stake-display">10</span></label>
+                                <input type="range" id="sports-stake" min="1" max="500" value="10" class="bet-slider">
+                            </div>
+                            <button id="place-bet-btn" class="spin-button">
+                                <i class="fas fa-check"></i> Place Bet
+                            </button>
+                            <button id="clear-bet-btn" class="secondary-button">
+                                <i class="fas fa-trash"></i> Clear
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Casino Page -->
+                <div id="live-page" class="page">
+                    <div class="page-header">
+                        <h1 class="page-title"><i class="fas fa-video"></i> Live Casino</h1>
+                    </div>
+                    <div class="live-container">
+                        <div class="live-streams">
+                            <div class="live-card">
+                                <div class="live-badge"><i class="fas fa-circle"></i> LIVE</div>
+                                <div class="live-preview">
+                                    <i class="fas fa-video"></i>
+                                    <p>Live Roulette</p>
+                                </div>
+                                <h3>Professional Roulette Table</h3>
+                                <p class="live-players"><i class="fas fa-users"></i> 1,234 Players</p>
+                                <button class="game-button">
+                                    <span>Join Now</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                            <div class="live-card">
+                                <div class="live-badge"><i class="fas fa-circle"></i> LIVE</div>
+                                <div class="live-preview">
+                                    <i class="fas fa-video"></i>
+                                    <p>Live Blackjack</p>
+                                </div>
+                                <h3>Premium Blackjack Table</h3>
+                                <p class="live-players"><i class="fas fa-users"></i> 856 Players</p>
+                                <button class="game-button">
+                                    <span>Join Now</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                            <div class="live-card">
+                                <div class="live-badge"><i class="fas fa-circle"></i> LIVE</div>
+                                <div class="live-preview">
+                                    <i class="fas fa-video"></i>
+                                    <p>Live Baccarat</p>
+                                </div>
+                                <h3>VIP Baccarat Table</h3>
+                                <p class="live-players"><i class="fas fa-users"></i> 542 Players</p>
+                                <button class="game-button">
+                                    <span>Join Now</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wallet Page -->
+                <div id="wallet-page" class="page">
+                    <div class="page-header">
+                        <h1 class="page-title"><i class="fas fa-wallet"></i> Wallet</h1>
+                    </div>
+                    <div class="wallet-container">
+                        <div class="balance-card">
+                            <h2>Current Balance</h2>
+                            <p id="wallet-balance" class="balance-amount">$1,000</p>
+                            <div class="balance-actions">
+                                <button class="balance-action-btn" onclick="document.querySelector('[data-action=deposit]').click()">
+                                    <i class="fas fa-plus"></i> Deposit
+                                </button>
+                                <button class="balance-action-btn" onclick="document.querySelector('[data-action=withdraw]').click()">
+                                    <i class="fas fa-minus"></i> Withdraw
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="wallet-actions">
+                            <div class="action-card">
+                                <h3><i class="fas fa-arrow-down"></i> Deposit</h3>
+                                <input type="number" id="deposit-amount" placeholder="Amount" min="1" max="10000" class="input-field">
+                                <button id="deposit-btn" class="action-button" data-action="deposit">Deposit</button>
+                            </div>
+                            <div class="action-card">
+                                <h3><i class="fas fa-arrow-up"></i> Withdraw</h3>
+                                <input type="number" id="withdraw-amount" placeholder="Amount" min="1" max="10000" class="input-field">
+                                <button id="withdraw-btn" class="action-button" data-action="withdraw">Withdraw</button>
+                            </div>
+                        </div>
+
+                        <div class="transactions-section">
+                            <h3><i class="fas fa-history"></i> Recent Transactions</h3>
+                            <div id="transactions-list" class="transactions-list"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Promotions Page -->
+                <div id="promotions-page" class="page">
+                    <div class="page-header">
+                        <h1 class="page-title"><i class="fas fa-gift"></i> Promotions & Bonuses</h1>
+                    </div>
+                    <div class="promotions-container">
+                        <div class="promo-card">
+                            <div class="promo-badge">Welcome</div>
+                            <h3>Welcome Bonus</h3>
+                            <p class="promo-desc">Get 100% match on your first deposit up to $500</p>
+                            <p class="promo-value">+$500</p>
+                            <button class="claim-button" data-promo="welcome">
+                                <i class="fas fa-star"></i> Claim
+                            </button>
+                        </div>
+                        <div class="promo-card">
+                            <div class="promo-badge">Daily</div>
+                            <h3>Daily Reward</h3>
+                            <p class="promo-desc">Claim your daily bonus every 24 hours</p>
+                            <p class="promo-value">+$50</p>
+                            <button class="claim-button" data-promo="daily">
+                                <i class="fas fa-calendar"></i> Claim
+                            </button>
+                        </div>
+                        <div class="promo-card">
+                            <div class="promo-badge">VIP</div>
+                            <h3>VIP Loyalty</h3>
+                            <p class="promo-desc">Earn points on every bet and redeem for rewards</p>
+                            <p class="promo-value">Points: <span id="vip-points">0</span></p>
+                            <button class="claim-button" data-promo="vip">
+                                <i class="fas fa-crown"></i> View
+                            </button>
+                        </div>
+                        <div class="promo-card">
+                            <div class="promo-badge">Referral</div>
+                            <h3>Referral Bonus</h3>
+                            <p class="promo-desc">Invite friends and earn $100 per referral</p>
+                            <p class="promo-value">+$100</p>
+                            <button class="claim-button" data-promo="referral">
+                                <i class="fas fa-share"></i> Share
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Leaderboard Page -->
+                <div id="leaderboard-page" class="page">
+                    <div class="page-header">
+                        <h1 class="page-title"><i class="fas fa-trophy"></i> Leaderboard</h1>
+                    </div>
+                    <div class="leaderboard-container">
+                        <table class="leaderboard-table">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Player</th>
+                                    <th>Winnings</th>
+                                    <th>Games</th>
+                                    <th>Win Rate</th>
+                                </tr>
+                            </thead>
+                            <tbody id="leaderboard-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Support/Chat Page -->
+                <div id="support-page" class="page">
+                    <div class="page-header">
+                        <h1 class="page-title"><i class="fas fa-headset"></i> Customer Support</h1>
+                    </div>
+                    <div class="support-container">
+                        <div class="support-grid">
+                            <div class="support-card">
+                                <i class="fas fa-phone"></i>
+                                <h3>Call Us</h3>
+                                <p>+1 (800) 123-4567</p>
+                                <p class="support-hours">24/7 Available</p>
+                            </div>
+                            <div class="support-card">
+                                <i class="fas fa-envelope"></i>
+                                <h3>Email Support</h3>
+                                <p>support@elitecasino.com</p>
+                                <p class="support-hours">Response within 2 hours</p>
+                            </div>
+                            <div class="support-card">
+                                <i class="fas fa-comments"></i>
+                                <h3>Live Chat</h3>
+                                <p>Chat with our agents</p>
+                                <p class="support-hours">24/7 Available</p>
+                            </div>
+                        </div>
+                        <div class="faq-section">
+                            <h3><i class="fas fa-question-circle"></i> Frequently Asked Questions</h3>
+                            <div class="faq-items">
+                                <div class="faq-item">
+                                    <h4>How do I withdraw my winnings?</h4>
+                                    <p>Go to the Wallet section and click Withdraw. Enter your amount and confirm.</p>
+                                </div>
+                                <div class="faq-item">
+                                    <h4>What is the minimum bet?</h4>
+                                    <p>The minimum bet varies by game, but typically starts at $1.</p>
+                                </div>
+                                <div class="faq-item">
+                                    <h4>How do I claim promotions?</h4>
+                                    <p>Visit the Promotions page and click Claim on any available bonus.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admin Panel -->
+                <div id="admin-page" class="page admin-only hidden">
+                    <div class="page-header">
+                        <h1 class="page-title"><i class="fas fa-cog"></i> Admin Panel</h1>
+                    </div>
+                    <div class="admin-container">
+                        <div class="admin-tabs">
+                            <button class="admin-tab active" data-tab="users">
+                                <i class="fas fa-users"></i> Users
+                            </button>
+                            <button class="admin-tab" data-tab="stats">
+                                <i class="fas fa-chart-bar"></i> Statistics
+                            </button>
+                            <button class="admin-tab" data-tab="transactions">
+                                <i class="fas fa-exchange-alt"></i> Transactions
+                            </button>
+                        </div>
+
+                        <div id="users-tab" class="admin-tab-content active">
+                            <h3>User Management</h3>
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Phone</th>
+                                        <th>Balance</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-users-list"></tbody>
+                            </table>
+                        </div>
+
+                        <div id="stats-tab" class="admin-tab-content">
+                            <h3>System Statistics</h3>
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <h4><i class="fas fa-users"></i> Total Users</h4>
+                                    <p id="admin-total-users">0</p>
+                                </div>
+                                <div class="stat-item">
+                                    <h4><i class="fas fa-gamepad"></i> Total Bets</h4>
+                                    <p id="admin-total-bets">0</p>
+                                </div>
+                                <div class="stat-item">
+                                    <h4><i class="fas fa-trophy"></i> Total Winnings</h4>
+                                    <p id="admin-total-winnings">$0</p>
+                                </div>
+                                <div class="stat-item">
+                                    <h4><i class="fas fa-piggy-bank"></i> Platform Balance</h4>
+                                    <p id="admin-platform-balance">$0</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="transactions-tab" class="admin-tab-content">
+                            <h3>All Transactions</h3>
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>User</th>
+                                        <th>Type</th>
+                                        <th>Amount</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-transactions-list"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
