@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NovaBETT Assistant - Premium AI-powered customer support chatbot">
+  <meta name="theme-color" content="#0F1419">
+  <title>NovaBETT Assistant - Premium Support</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- SVG Icon Library -->
+  <svg class="icon-library" xmlns="http://www.w3.org/2000/svg">
+    <use href="icons.svg#icon-logo"></use>
+  </svg>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-left">
+        <button class="btn-icon btn-menu" id="menuToggle" aria-label="Toggle menu">
+          <svg class="icon" viewBox="0 0 24 24">
+            <use href="icons.svg#icon-menu"></use>
+          </svg>
+        </button>
+        <div class="header-brand">
+          <div class="brand-logo">
+            <svg class="icon" viewBox="0 0 48 48">
+              <use href="icons.svg#icon-logo"></use>
+            </svg>
+          </div>
+          <div class="brand-info">
+            <h1 class="brand-name">NovaBETT Assistant</h1>
+            <div class="status-indicator">
+              <svg class="icon-status" viewBox="0 0 24 24">
+                <use href="icons.svg#icon-online"></use>
+              </svg>
+              <span class="status-text">Online</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="header-right">
+        <button class="btn-icon btn-settings" id="settingsBtn" aria-label="Settings">
+          <svg class="icon" viewBox="0 0 24 24">
+            <use href="icons.svg#icon-settings"></use>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Chat Area -->
+    <main class="chat-container">
+      <div class="chat-messages" id="chatMessages" role="log" aria-live="polite" aria-label="Chat messages">
+        <!-- Welcome Message -->
+        <div class="message-group message-bot">
+          <div class="message-avatar">
+            <svg class="icon" viewBox="0 0 48 48">
+              <use href="icons.svg#icon-logo"></use>
+            </svg>
+          </div>
+          <div class="message-content">
+            <div class="message-bubble">
+              <p>Welcome to NovaBETT Assistant! I'm here to help you with any questions about your gaming account, deposits, promotions, and more. How can I assist you today?</p>
+            </div>
+            <div class="message-meta">
+              <time class="message-time" datetime="">Just now</time>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Suggested Actions -->
+      <div class="suggested-actions" id="suggestedActions">
+        <button class="action-btn" data-action="account">
+          <svg class="icon" viewBox="0 0 24 24">
+            <use href="icons.svg#icon-user"></use>
+          </svg>
+          <span>Account Help</span>
+        </button>
+        <button class="action-btn" data-action="deposit">
+          <svg class="icon" viewBox="0 0 24 24">
+            <use href="icons.svg#icon-upload"></use>
+          </svg>
+          <span>Deposit Guide</span>
+        </button>
+        <button class="action-btn" data-action="promotions">
+          <svg class="icon" viewBox="0 0 24 24">
+            <use href="icons.svg#icon-bell"></use>
+          </svg>
+          <span>Promotions</span>
+        </button>
+        <button class="action-btn" data-action="faq">
+          <svg class="icon" viewBox="0 0 24 24">
+            <use href="icons.svg#icon-info"></use>
+          </svg>
+          <span>FAQ</span>
+        </button>
+      </div>
+    </main>
+
+    <!-- Input Area -->
+    <footer class="chat-footer">
+      <div class="input-wrapper">
+        <input 
+          type="text" 
+          class="message-input" 
+          id="messageInput" 
+          placeholder="Type your message here..." 
+          aria-label="Message input"
+          autocomplete="off"
+        >
+        <button class="btn-icon btn-attach" id="attachBtn" aria-label="Attach file">
+          <svg class="icon" viewBox="0 0 24 24">
+            <use href="icons.svg#icon-attachment"></use>
+          </svg>
+        </button>
+      </div>
+      <button class="btn-send" id="sendBtn" aria-label="Send message">
+        <svg class="icon" viewBox="0 0 24 24">
+          <use href="icons.svg#icon-send"></use>
+        </svg>
+        <span>Send</span>
+      </button>
+    </footer>
+  </div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar" role="navigation" aria-label="Navigation sidebar">
+    <div class="sidebar-header">
+      <h2 class="sidebar-title">Menu</h2>
+      <button class="btn-icon btn-close-sidebar" id="closeSidebar" aria-label="Close sidebar">
+        <svg class="icon" viewBox="0 0 24 24">
+          <use href="icons.svg#icon-close"></use>
+        </svg>
+      </button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <h3 class="nav-section-title">Chat</h3>
+        <button class="nav-item" id="newChatBtn">
+          <svg class="icon" viewBox="0 0 24 24">
+            <use href="icons.svg#icon-send"></use>
+          </svg>
+          <span>New Chat</span>
+        </button>
+        <button class="nav-item" id="chatHistoryBtn">
+          <svg class="icon" viewBox="0 0 24 24">
+            <use href="icons.svg#icon-clock"></use>
+          </svg>
+          <span>Chat History</span>
+        </button>
+      </div>
+
+      <div class="nav-section">
+        <h3 class="nav-section-title">Support</h3>
+        <button class="nav-item" id="faqBtn">
+          <svg class="icon" viewBox="0 0 24 24">
+            <use href="icons.svg#icon-info"></use>
+          </svg>
+          <span>FAQ</span>
+        </button>
+        <button class="nav-item" id="contactBtn">
+          <svg class="icon" viewBox="0 0 24 24">
+            <use href="icons.svg#icon-bell"></use>
+          </svg>
+          <span>Contact Us</span>
+        </button>
+      </div>
+
+      <div class="nav-section">
+        <h3 class="nav-section-title">Admin</h3>
+        <button class="nav-item" id="adminBtn">
+          <svg class="icon" viewBox="0 0 24 24">
+            <use href="icons.svg#icon-lock"></use>
+          </svg>
+          <span>Admin Console</span>
+        </button>
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <p class="sidebar-version">NovaBETT Assistant v1.0</p>
+    </div>
+  </aside>
+
+  <!-- Overlay -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Admin Modal -->
+  <div class="modal" id="adminModal" role="dialog" aria-labelledby="adminModalTitle" aria-hidden="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="adminModalTitle" class="modal-title">Admin Console</h2>
+        <button class="btn-icon btn-close-modal" id="closeAdminModal" aria-label="Close modal">
+          <svg class="icon" viewBox="0 0 24 24">
+            <use href="icons.svg#icon-close"></use>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Admin Login Form -->
+        <div id="adminLoginForm" class="admin-section">
+          <h3>Admin Access</h3>
+          <p class="admin-description">Enter the admin password to access the console.</p>
+          <div class="form-group">
+            <label for="adminPassword" class="form-label">Password</label>
+            <div class="password-input-wrapper">
+              <input 
+                type="password" 
+                id="adminPassword" 
+                class="form-input" 
+                placeholder="Enter password"
+                aria-label="Admin password"
+              >
+              <button class="btn-icon btn-toggle-password" id="togglePasswordBtn" aria-label="Toggle password visibility">
+                <svg class="icon" viewBox="0 0 24 24">
+                  <use href="icons.svg#icon-info"></use>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <button class="btn-primary" id="adminLoginBtn">Unlock Admin Console</button>
+          <div class="admin-error" id="adminError" role="alert"></div>
+        </div>
+
+        <!-- Admin Panel (Hidden until unlocked) -->
+        <div id="adminPanel" class="admin-section" style="display: none;">
+          <div class="admin-tabs">
+            <button class="admin-tab-btn active" data-tab="knowledge-base">Knowledge Base</button>
+            <button class="admin-tab-btn" data-tab="chat-logs">Chat Logs</button>
+            <button class="admin-tab-btn" data-tab="settings">Settings</button>
+          </div>
+
+          <!-- Knowledge Base Tab -->
+          <div id="knowledge-base-tab" class="admin-tab active">
+            <h3>Knowledge Base</h3>
+            <div class="form-group">
+              <label for="kbContent" class="form-label">Knowledge Base Content</label>
+              <textarea 
+                id="kbContent" 
+                class="form-textarea" 
+                placeholder="Enter knowledge base content here..."
+                aria-label="Knowledge base content"
+              ></textarea>
+            </div>
+            <button class="btn-primary" id="saveKbBtn">Save Knowledge Base</button>
+            <div class="admin-message" id="kbMessage"></div>
+          </div>
+
+          <!-- Chat Logs Tab -->
+          <div id="chat-logs-tab" class="admin-tab">
+            <h3>Chat Logs</h3>
+            <div class="logs-container" id="logsContainer">
+              <p class="logs-empty">No logs available</p>
+            </div>
+            <button class="btn-secondary" id="exportLogsBtn">
+              <svg class="icon" viewBox="0 0 24 24">
+                <use href="icons.svg#icon-download"></use>
+              </svg>
+              Export Logs
+            </button>
+          </div>
+
+          <!-- Settings Tab -->
+          <div id="settings-tab" class="admin-tab">
+            <h3>Settings</h3>
+            <div class="form-group">
+              <label for="workerUrl" class="form-label">Worker URL</label>
+              <input 
+                type="url" 
+                id="workerUrl" 
+                class="form-input" 
+                placeholder="https://..."
+                aria-label="Worker URL"
+              >
+            </div>
+            <div class="form-group">
+              <label for="firebaseConfig" class="form-label">Firebase Config</label>
+              <textarea 
+                id="firebaseConfig" 
+                class="form-textarea" 
+                placeholder="Paste Firebase config JSON..."
+                aria-label="Firebase configuration"
+              ></textarea>
+            </div>
+            <button class="btn-primary" id="saveSettingsBtn">Save Settings</button>
+            <div class="admin-message" id="settingsMessage"></div>
+          </div>
+
+          <button class="btn-secondary" id="logoutBtn">Logout Admin</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+</html>
