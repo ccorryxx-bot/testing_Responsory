@@ -9,6 +9,12 @@ import { initLinked } from './withdraw.js';
 import { currentUserId } from './auth.js';
 import { loadDashboardStats } from './agent.js';
 
+// Expose needed functions globally for inline HTML onclick attributes
+import { shareVia, gToast, switchTab } from './utils.js';
+window.shareVia = shareVia;
+window.gToast = gToast;
+window.switchTab = switchTab;
+
 document.addEventListener('DOMContentLoaded', () => {
   try {
     // 1. Bind all DOM events (buttons, modals, navigation)
@@ -26,28 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
       initLinked();
     }
 
-    // 5. Wheel and tasks initializations will happen when their pages load
-    //    (showPage → loads tasks.html → then we can call initWheel() & initTasks())
-    //    We'll handle that inside showPage or by observing page loads.
-    //    For simplicity, we'll delay wheel/tasks init until first visit.
-    //    But to ensure they work, we can also add them to showPage.
-    //    Already done: showPage calls initWheel? No, we left wheel out.
-    //    Let's add wheel init after tasks page load inside showPage or here with MutationObserver.
-    //    Better: update showPage in ui.js to call initWheel and initTasks.
-    //    But we already have showPage in ui.js; it doesn't call wheel.
-    //    We'll do a quick patch: we'll listen for pageContainer changes and if tasks page loads, init wheel/tasks.
-    //    Alternative: call initWheel and initTasks after a delay? No.
-    //    Let's just update showPage logic in ui.js later; for now, we'll add a generic observer.
-    //    Actually we can modify showPage in ui.js to call initWheel when tasks page loads.
-    //    But we already sent ui.js code. Instead, we can add a MutationObserver here.
-    //    Simpler: We'll keep as is; the user will later handle per-page init manually.
-    //    Not ideal. Let's add inline in showPage after load (already planned but not done).
-    //    We'll adjust: We'll update main.js to set up a MutationObserver on pageContainer to call initWheel/initTasks when tasks page appears.
-    //    But that's extra complexity. Better to update ui.js's showPage. Since we haven't saved ui.js yet? No, user already saved ui.js.
-    //    So we'll add a fallback: setTimeout after showPage to try initWheel/initTasks with a small delay, or we modify main.js to track page loads.
-
-    //    Quick solution: after showPage('home'), we'll set a one-time observer.
-    //    I'll add a MutationObserver to detect when tasks page is loaded and call initWheel/initTasks.
+    // 5. Wheel and tasks initializations when tasks page loads
     const pageContainer = document.getElementById('pageContainer');
     if (pageContainer) {
       const observer = new MutationObserver(() => {
