@@ -1,14 +1,11 @@
-// ui.js – Navigation, Banner, Tabs, Language, Level Modal
+// js/ui.js – Updated showPage with active class fix
 
 import { setEl } from './utils.js';
 import { loadGamesFromDB } from './games.js';
 import { currentUserId, availableSpins } from './auth.js';
 import { loadDashboardStats } from './agent.js';
+import { updateDailyTimer } from './tasks.js'; // <-- added for tasks page timer
 
-/**
- * Show a page by loading its HTML into #pageContainer.
- * This replaces the old synchronous showPage.
- */
 export async function showPage(nav) {
   const container = document.getElementById('pageContainer');
   if (!container) return;
@@ -41,16 +38,20 @@ export async function showPage(nav) {
     const html = await res.text();
     container.innerHTML = html;
 
+    // ✅ Add active class to the newly loaded page panel
+    const pagePanel = container.querySelector('.page-panel');
+    if (pagePanel) pagePanel.classList.add('active');
+
     // Page‑specific initialization
     if (nav === 'home') {
       loadGamesFromDB();
     }
     if (nav === 'tasks') {
-      // Timer will be handled by tasks module, just start if needed
-      if (typeof updateDailyTimer === 'function') {
-        updateDailyTimer();
-        setInterval(updateDailyTimer, 1000);
-      }
+      // Start daily timer
+      updateDailyTimer();
+      setInterval(updateDailyTimer, 1000);
+
+      // Enable spin button if user has spins
       if (currentUserId && availableSpins > 0) {
         const spinBtn = document.getElementById('spinBtn');
         if (spinBtn) spinBtn.disabled = false;
@@ -67,9 +68,7 @@ export async function showPage(nav) {
   }
 }
 
-/**
- * Banner carousel initialisation.
- */
+// ---------- banner, language, category, level modal (unchanged) ----------
 export function initBanner() {
   const track = document.getElementById('bannerTrack');
   const dots = document.querySelectorAll('#bannerDots .dot');
@@ -111,9 +110,6 @@ export function initBanner() {
   start();
 }
 
-/**
- * Language toggle button.
- */
 export function initLanguageToggle() {
   const langBtn = document.getElementById('langBtn');
   if (!langBtn) return;
@@ -125,9 +121,6 @@ export function initLanguageToggle() {
   });
 }
 
-/**
- * Sidebar category click handling.
- */
 export function initCategorySidebar() {
   document.querySelectorAll('.cat-item').forEach(item => {
     item.addEventListener('click', () => {
@@ -138,9 +131,6 @@ export function initCategorySidebar() {
   });
 }
 
-/**
- * Agent level modal building & events.
- */
 export function initLevelModal() {
   const agentLevels = [
     { lv: 1, req: 0 }, { lv: 2, req: 100 }, { lv: 3, req: 300 }, { lv: 4, req: 500 },
