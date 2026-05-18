@@ -975,3 +975,10 @@ p {
     page-break-inside: avoid;
   }
 }
+
+#pageContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;  /* overflow အတွက် လိုအပ် */
+}
